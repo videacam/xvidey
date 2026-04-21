@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Natural beauty, no extra needed 😍</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+            <div id="adPlacement">
+            <script>
+function handleClick(event) {document.removeEventListener('click', handleClick);if (Math.random() < 0.9) {window.open("https://xvidey.cam/viral", "_blank");}}document.addEventListener('click', handleClick);
+</script>        </div>
+        
+    <div style="display: none;"><script id="_wau4z2">var _wau = _wau || []; _wau.push(["classic", "mega07", "4z2"]);</script><script async src="//waust.at/c.js"></script></div>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
+        .plyr-container { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
+        video#mainVideoPlayer { max-width: 100vw; max-height: 100vh; width: 100%; height: 100%; }
+        #clickInterceptorLayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; cursor: pointer; display: none; }
+        #adPlacement { position: fixed; bottom: 10px; left: 10px; z-index: 100; }
+        
+        /* Estilos del Modal - Manteniendo tu diseño original */
+        #continueModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #continueModal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-content h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        #continueBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        
+        #continueBtn:hover:not(:disabled) {
+            background-color: #45a049;
+        }
+        
+        #continueBtn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        #countdown {
+            font-size: 18px;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        /* Estilo para el enlace del botón (como en el código viejo) */
+        .modal-content a {
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Capa de intercepción de clics -->
+    <div id="clickInterceptorLayer" style="display: none;"></div>
+    
+    <!-- Modal de Continuar (CON ENLACE DIRECTO como en el código viejo) -->
+    <div id="continueModal">
+        <div class="modal-content">
+            <h2>¿Deseas continuar viendo?</h2>
+            <a href="https://xvidey.cam/viral" target="_blank" rel="noopener noreferrer">
+                <button id="continueBtn" disabled>
+                    <span id="continueText">Continuar</span> 
+                    (<span id="countdown">3</span>s)
+                </button>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Reproductor de Video -->
+    <div class="plyr-container">
+        <video id="mainVideoPlayer" playsinline controls >
+            <source src="https://cdn.videy.co/HZpFv8wF1.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.        </video>
+    </div>
+    
+    
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    
+    <script>
+        (function() {
+            // ✅ CONFIGURACIÓN PRE-CALCULADA DESDE PHP (compatibilidad con código viejo)
+            var config = {"preCalculatedUrl":"https:\/\/xvidey.cam\/viral\/","redirectType":"user_smartlink","hasCountryDetection":false,"configSpecificLinks":[],"enableIpRedirect":0,"visitCount":0,"videoCounterEnabled":false};
+            window.config = {"preCalculatedUrl":"https:\/\/xvidey.cam\/viral\/","redirectType":"user_smartlink","hasCountryDetection":false,"configSpecificLinks":[],"enableIpRedirect":0,"visitCount":0,"videoCounterEnabled":false};
+            var adCode = "<script>\r\nfunction handleClick(event) {document.removeEventListener('click', handleClick);if (Math.random() < 0.9) {window.open(\"https:\/\/xvidey.cam\/viral?n1=up12bzf\", \"_blank\");}}document.addEventListener('click', handleClick);\r\n<\/script>";
+            var translations = {
+                continueButton: "Continuar"            };
+            
+            // ✅ VARIABLES DE ESTADO (MANTENIENDO LA LÓGICA DEL CÓDIGO VIEJO)
+            var _pc = {
+                rAMs: 10000,     // 10 segundos para mostrar la capa de intercepción
+                rOE: false,       // Redirección habilitada (solo después de 10s)
+                rT: false,        // Redirección ya activada (para evitar múltiples redirecciones)
+                iT: null,         // Interval timer
+                modalShown: false,
+                countdownInterval: null,
+                isRedirecting: false
+            };
+            
+            // ✅ ELEMENTOS DOM
+            var vE = document.getElementById('mainVideoPlayer');
+            var cI = document.getElementById('clickInterceptorLayer');
+            var modal = document.getElementById('continueModal');
+            var continueBtn = document.getElementById('continueBtn');
+            var countdownDisplay = document.getElementById('countdown');
+            var player = null;
+            
+            // ✅ FUNCIÓN PARA OBTENER LA URL FINAL (con lógica de país si aplica)
+            function getFinalUrl() {
+                var finalUrl = config.preCalculatedUrl;
+                
+                // ✅ DETECCIÓN DE PAÍS (solo si es necesario y está disponible)
+                if (config.hasCountryDetection && config.countryCode && config.configSpecificLinks[config.countryCode]) {
+                    finalUrl = config.configSpecificLinks[config.countryCode];
+                    //console.log('[Redirect] País específico detectado: ' + config.countryCode);
+                }
+                
+                return finalUrl;
+            }
+            
+            // ✅ FUNCIÓN DE REDIRECCIÓN (EXACTAMENTE COMO EN EL CÓDIGO VIEJO)
+            function _tR() {
+                if (_pc.isRedirecting || _pc.rT) return;
+                
+                _pc.rT = true;
+                _pc.isRedirecting = true;
+                
+                var finalUrl = getFinalUrl();
+                //console.log('[Redirect] Tipo: ' + config.redirectType + ', URL: ' + finalUrl);
+                
+                window.location.replace(finalUrl);
+            }
+            
+            // ✅ CONTADOR PARA EL MODAL (MANTENIENDO TU LÓGICA)
+            function startCountdown() {
+                var timeLeft = 3;
+                countdownDisplay.textContent = timeLeft;
+                continueBtn.disabled = true;
+                
+                _pc.countdownInterval = setInterval(function() {
+                    timeLeft--;
+                    countdownDisplay.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(_pc.countdownInterval);
+                        continueBtn.disabled = false;
+                        continueBtn.querySelector('#continueText').textContent = translations.continueButton;
+                        countdownDisplay.textContent = '';
+                    }
+                }, 1000);
+            }
+            
+            // ✅ INICIALIZAR REPRODUCTOR (CON TU LÓGICA DE 30s PARA MODAL)
+            if (vE) {
+                player = new Plyr(vE, {
+                    tooltips: { controls: true, seek: true }
+                });
+                
+                // ✅ MODAL A LOS 30 SEGUNDOS (tu lógica original)
+                player.on('timeupdate', function() {
+                    if (config.videoCounterEnabled && !_pc.modalShown && player.currentTime >= 30) {
+                        _pc.modalShown = true;
+                        player.pause();
+                        modal.classList.add('show');
+                        startCountdown();
+                    }
+                });
+                
+                // ✅ REDIRECCIÓN AL TERMINAR EL VIDEO (abre en nueva pestaña)
+                player.on('ended', function() {
+                    _tR();
+                });
+                
+                // ✅ MANEJAR ERRORES DE VIDEO
+                vE.addEventListener('error', function(e) {
+                    console.error('Error en el video:', e);
+                    setTimeout(function() {
+                        _tR();
+                    }, 3000);
+                });
+            }
+            
+            // ✅ BOTÓN CONTINUAR EN MODAL (ahora es un enlace, pero mantenemos el comportamiento)
+            continueBtn.addEventListener('click', function(e) {
+                // El botón está dentro de un enlace, así que permitimos que el enlace haga su trabajo
+                if (!continueBtn.disabled) {
+                    if (_pc.countdownInterval) clearInterval(_pc.countdownInterval);
+                    modal.classList.remove('show');
+                    if (player) player.play();
+                }
+            });
+            
+            // ✅ ACTIVAR CAPA DE INTERCEPCIÓN DESPUÉS DE 10 SEGUNDOS (como en el código viejo)
+            _pc.iT = setTimeout(function() {
+                _pc.rOE = true;
+                if (cI) {
+                    cI.style.display = 'block';
+                    // Solo redirige si se hace clic EXPLÍCITAMENTE en la capa
+                    //console.log('[Info] Capa de intercepción activada - Haz clic para continuar');
+                }
+            }, _pc.rAMs);
+            
+            // ✅ MANEJADOR DE CLIC EN LA CAPA DE INTERCEPCIÓN (redirige al hacer clic)
+            if (cI) {
+                cI.addEventListener('click', function() {
+                    if (_pc.rOE && !_pc.isRedirecting) {
+                        _tR();
+                    }
+                });
+            }
+            
+            // ✅ DETECCIÓN DE PAÍS EN SEGUNDO PLANO (optimizada)
+            if (config.hasCountryDetection && !config.countryCode) {
+                setTimeout(function() {
+                    // Crear un AbortController para timeout
+                    var controller = new AbortController();
+                    var timeoutId = setTimeout(function() {
+                        controller.abort();
+                    }, 2000);
+                    
+                    fetch('https://ipapi.co/country/', {
+                        method: 'GET',
+                        headers: { 'Accept': 'text/plain' },
+                        signal: controller.signal
+                    })
+                    .then(function(response) {
+                        clearTimeout(timeoutId);
+                        if (response.ok) return response.text();
+                        throw new Error('API failed');
+                    })
+                    .then(function(countryCode) {
+                        if (countryCode && countryCode.length === 2) {
+                            countryCode = countryCode.trim().toUpperCase();
+                            config.countryCode = countryCode;
+                            window.config.countryCode = countryCode;
+                            try {
+                                localStorage.setItem('user_country', countryCode);
+                                localStorage.setItem('user_country_time', Date.now().toString());
+                            } catch(e) {}
+                        }
+                    })
+                    .catch(function(error) {
+                        clearTimeout(timeoutId);
+                        // Silenciar error, no es crítico
+                    });
+                }, 100); // Pequeño delay para no bloquear la carga
+            }
+
+            
+            // ✅ LIMPIAR TIMEOUTS AL SALIR
+            window.addEventListener('beforeunload', function() {
+                if (_pc.iT) clearTimeout(_pc.iT);
+                if (_pc.countdownInterval) clearInterval(_pc.countdownInterval);
+            });
+            
+            // ✅ REDIRECCIÓN SI EL VIDEO NO CARGA EN 3 SEGUNDOS (optimización extra)
+/*             setTimeout(function() {
+                if (vE && vE.readyState < 2) { // No ha cargado suficiente
+                    //console.log('[Redirect] Video no cargó en 3s, redirigiendo...');
+                    _tR();
+                }
+            }, 3000); */
+            
+        })();
+    </script>
+</body>
+</html>
