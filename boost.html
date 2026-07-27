@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Redirecting...</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+    background:#f5f5f7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* Background Blur */
+.bg{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.blur{
+    position:absolute;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:.45;
+    animation:float 8s ease-in-out infinite;
+}
+
+.blur:nth-child(1){
+    background:#4F8CFF;
+    left:-100px;
+    top:-70px;
+}
+
+.blur:nth-child(2){
+    background:#8B5CF6;
+    right:-120px;
+    bottom:-80px;
+    animation-delay:3s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-30px);
+    }
+}
+
+.card{
+    position:relative;
+    z-index:5;
+
+    width:360px;
+
+    background:rgba(255,255,255,.72);
+
+    backdrop-filter:blur(35px);
+
+    border:1px solid rgba(255,255,255,.6);
+
+    border-radius:30px;
+
+    padding:45px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.08);
+}
+
+/* Apple Spinner */
+
+.spinner{
+    width:54px;
+    height:54px;
+    margin:auto;
+    position:relative;
+}
+
+.spinner span{
+    position:absolute;
+    width:5px;
+    height:15px;
+    background:#111827;
+    border-radius:20px;
+    left:50%;
+    top:50%;
+    margin-left:-2.5px;
+    margin-top:-24px;
+    opacity:.12;
+    transform-origin:center 27px;
+    animation:fade 1s linear infinite;
+}
+
+.spinner span:nth-child(1){transform:rotate(0deg);animation-delay:-0.92s;}
+.spinner span:nth-child(2){transform:rotate(30deg);animation-delay:-0.84s;}
+.spinner span:nth-child(3){transform:rotate(60deg);animation-delay:-0.76s;}
+.spinner span:nth-child(4){transform:rotate(90deg);animation-delay:-0.68s;}
+.spinner span:nth-child(5){transform:rotate(120deg);animation-delay:-0.60s;}
+.spinner span:nth-child(6){transform:rotate(150deg);animation-delay:-0.52s;}
+.spinner span:nth-child(7){transform:rotate(180deg);animation-delay:-0.44s;}
+.spinner span:nth-child(8){transform:rotate(210deg);animation-delay:-0.36s;}
+.spinner span:nth-child(9){transform:rotate(240deg);animation-delay:-0.28s;}
+.spinner span:nth-child(10){transform:rotate(270deg);animation-delay:-0.20s;}
+.spinner span:nth-child(11){transform:rotate(300deg);animation-delay:-0.12s;}
+.spinner span:nth-child(12){transform:rotate(330deg);animation-delay:-0.04s;}
+
+@keyframes fade{
+    0%{opacity:1;}
+    100%{opacity:.12;}
+}
+
+h2{
+    margin-top:30px;
+    font-size:28px;
+    color:#111;
+    font-weight:600;
+    letter-spacing:-0.5px;
+}
+
+p{
+    margin-top:12px;
+    color:#666;
+    font-size:16px;
+    line-height:1.6;
+}
+
+.progress{
+    margin-top:32px;
+    height:6px;
+    background:#e8e8ed;
+    border-radius:30px;
+    overflow:hidden;
+}
+
+.progress div{
+    height:100%;
+    width:0%;
+    border-radius:30px;
+    background:linear-gradient(90deg,#007AFF,#5AC8FA);
+    transition:.03s linear;
+}
+
+.percent{
+    margin-top:18px;
+    font-size:15px;
+    color:#666;
+    letter-spacing:.5px;
+}
+
+.fade{
+    animation:appear .8s ease;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg">
+<div class="blur"></div>
+<div class="blur"></div>
+</div>
+
+<div class="card fade">
+
+<div class="spinner">
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+</div>
+
+<h2>Preparing Your Experience</h2>
+
+<p>Please wait while we securely redirect you.</p>
+
+<div class="progress">
+<div id="bar"></div>
+</div>
+
+<div class="percent" id="percent">0%</div>
+
+</div>
+
+<script>
+
+const duration = 3500;
+const start = Date.now();
+
+const bar = document.getElementById("bar");
+const percent = document.getElementById("percent");
+
+function animate(){
+
+    let progress = (Date.now() - start) / duration;
+
+    if(progress > 1) progress = 1;
+
+    let value = Math.floor(progress * 100);
+
+    bar.style.width = value + "%";
+    percent.innerHTML = value + "%";
+
+    if(progress < 1){
+
+        requestAnimationFrame(animate);
+
+    }else{
+
+        document.body.style.opacity="0";
+
+        document.body.style.transition="opacity .45s ease";
+
+        setTimeout(()=>{
+
+            window.location.href="https://example.com";
+
+        },450);
+
+    }
+
+}
+
+requestAnimationFrame(animate);
+
+</script>
+
+</body>
+</html>
