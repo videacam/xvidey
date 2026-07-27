@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preparing Stream...</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#09090b;color:#fff;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+body:before,body:after{content:"";position:fixed;border-radius:50%;filter:blur(90px);opacity:.25;animation:f 18s ease-in-out infinite}
+body:before{width:420px;height:420px;background:#2563eb;left:-120px;top:-120px}
+body:after{width:360px;height:360px;background:#7c3aed;right:-80px;bottom:-80px;animation-delay:6s}
+@keyframes f{50%{transform:translate(40px,-30px) scale(1.15)}}
+.card{width:360px;max-width:92%;padding:34px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(24px);border-radius:28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.logo{width:84px;height:84px;margin:auto;border-radius:22px;background:linear-gradient(135deg,#2563eb,#60a5fa);display:flex;align-items:center;justify-content:center;animation:pulse 2.5s ease-in-out infinite}
+.logo svg{width:34px;height:34px;fill:#fff}
+@keyframes pulse{50%{transform:scale(1.05)}}
+.loader{margin:28px auto;width:46px;height:46px;border:2px solid rgba(255,255,255,.12);border-top-color:#fff;border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-size:28px}
+p{margin-top:10px;color:#b4b4b8}
+.progress{margin-top:28px;height:4px;background:#222;border-radius:99px;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#fff,#d1d5db,#fff);background-size:200% 100%;animation:sh 2s linear infinite;transition:width .45s cubic-bezier(.22,1,.36,1)}
+@keyframes sh{from{background-position:200% 0}to{background-position:-200% 0}}
+.bottom{margin-top:12px;display:flex;justify-content:space-between;color:#999;font-size:13px}
+.fade{animation:fade .45s forwards}
+@keyframes fade{to{opacity:0;transform:scale(.98);filter:blur(8px)}}
+</style></head>
+<body>
+<div class="card" id="card">
+<div class="logo"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+<div class="loader"></div>
+<h1>Preparing your stream</h1>
+<p id="status">Connecting...</p>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="bottom"><span id="percent">0%</span><span>Secure Playback</span></div>
+</div>
+<script>
+const steps=[
+{text:"Connecting...",v:12,d:350},
+{text:"Finding fastest server...",v:34,d:500},
+{text:"Preparing playback...",v:58,d:600},
+{text:"Optimizing quality...",v:82,d:550},
+{text:"Buffering stream...",v:96,d:450},
+{text:"Ready",v:100,d:250}
+];
+let i=0;
+const s=status,b=bar,p=percent,c=card;
+function run(){
+ if(i>=steps.length){c.classList.add("fade");return setTimeout(()=>location.href="https://www.google.com",450);}
+ const st=steps[i++];
+ s.style.opacity=0;
+ setTimeout(()=>{
+  s.textContent=st.text;s.style.opacity=1;
+  b.style.width=st.v+"%";p.textContent=st.v+"%";
+  setTimeout(run,st.d);
+ },120);
+}
+setTimeout(run,300);
+</script>
+</body></html>
